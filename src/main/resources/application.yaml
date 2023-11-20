@@ -29,12 +29,16 @@ spring:
       # 反序列化时，json 中包含 pojo 不存在属性时，是否抛异常
       FAIL_ON_UNKNOWN_PROPERTIES: false
 
+
+#  main:
+#    allow-circular-references: true
 # ??mp???????????
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-app:
-  jwtSecret: YourSecretKeyHere
-  jwtExpirationMs: 3600000  # Example for 1 hour in milliseconds
+jwt:
+  secret: db9d654c4860d4d37406d1ffcd92be5756a9ea94c03464aba0e475dc88932fee2278a23f6e6953a24d089ad09d99ac9d07ebd223a7f264fa2a7bea8a779c7946
+
+

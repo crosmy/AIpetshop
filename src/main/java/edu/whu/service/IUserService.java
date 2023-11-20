@@ -2,6 +2,8 @@ package edu.whu.service;
 
 import edu.whu.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import edu.whu.exception.CustomException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -12,9 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-11-14
  */
 public interface IUserService extends IService<User> {
-    /**
-     * Functions: registerUser(User user), validateUserCredentials(String username,
-     * String password), findUserById(int userId), updateUser(User user),
-     * and other user-related business logic.
-     */
+    User getUser(String username);
+    String authenticateUser(boolean isPasswordMatch, UserDetails userDetails) throws CustomException;
+    User registerNewUser(User newUser) throws CustomException;
 }
