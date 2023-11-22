@@ -22,11 +22,11 @@ public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "message_id", type = IdType.AUTO)
-    private Integer message_id;
+    private Integer messageId;
 
-    private Integer sender_id;
+    private Integer senderId;
 
-    private Integer receiver_id;
+    private Integer receiverId;
 
     private String content;
 

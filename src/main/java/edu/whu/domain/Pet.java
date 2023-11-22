@@ -22,9 +22,9 @@ public class Pet implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "pet_id", type = IdType.AUTO)
-    private Integer pet_id;
+    private Integer petId;
 
-    private Integer owner_id;
+    private Integer ownerId;
 
     private String name;
 
@@ -36,15 +36,15 @@ public class Pet implements Serializable {
 
     private String description;
 
-    private String health_information;
+    private String healthInformation;
 
     private String vaccinations;
 
-    private String photo_url;
+    private String photoUrl;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
 
 }

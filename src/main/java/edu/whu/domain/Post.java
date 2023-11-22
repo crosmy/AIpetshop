@@ -22,19 +22,21 @@ public class Post implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "post_id", type = IdType.AUTO)
-    private Integer post_id;
+    private Integer postId;
 
-    private Integer user_id;
+    private Integer userId;
 
     private String title;
 
     private String content;
 
-    private LocalDateTime created_at;
+    private String imageUrls;// JSON或逗号分隔的URLs
 
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
 
-    private Integer pet_id;
+    private LocalDateTime updatedAt;
+
+    private Integer petId;
 
 
 }

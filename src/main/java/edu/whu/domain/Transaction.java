@@ -23,17 +23,17 @@ public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "transaction_id", type = IdType.AUTO)
-    private Integer transaction_id;
+    private Integer transactionId;
 
-    private Integer seller_id;
+    private Integer sellerId;
 
-    private Integer buyer_id;
+    private Integer buyerId;
 
-    private Integer pet_id;
+    private Integer petId;
 
     private BigDecimal price;
 
-    private LocalDate transaction_date;
+    private LocalDate transactionDate;
 
     private String status;
 

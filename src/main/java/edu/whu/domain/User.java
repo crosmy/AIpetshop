@@ -22,7 +22,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer user_id;
+    private Integer userId;
 
     private String username;
 
@@ -32,11 +32,11 @@ public class User implements Serializable {
 
     private String role;
 
-    private String profile_picture_url;
+    private String profilePictureUrl;
 
-    private String contact_info;
+    private String contactInfo;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
 
 }
