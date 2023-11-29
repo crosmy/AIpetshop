@@ -1,13 +1,17 @@
 package edu.whu.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import edu.whu.domain.Post;
 import edu.whu.exception.CustomException;
 import edu.whu.service.IPostService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -60,6 +64,40 @@ public class PostController {
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
+
+    @GetMapping("/query")
+    public IPage<Post> findPost(@ApiParam("帖子关键字")@RequestParam(value = "keyword",required = false) String keyword,
+                                @ApiParam("宠物最低价格") @RequestParam(value = "minPrice",required = false)  Integer minPrice,
+                                @ApiParam("宠物最高价格") @RequestParam(value = "maxPrice",required = false)  Integer maxPrice,
+                                @ApiParam("排序字段") @RequestParam(value = "orderField",required = false)  String orderField,
+                                @ApiParam("排序方式") @RequestParam(value = "orderType",required = false)  String orderType,
+                                @ApiParam("宠物类别") @RequestParam(value = "type",required = false)  String type,
+                                @ApiParam("页码")@RequestParam(defaultValue = "0")Integer pageNum,
+                                @ApiParam("每页记录数") @RequestParam(defaultValue = "10")Integer pageSize) throws CustomException {
+        Map<String,Object> condition=new HashMap<>();
+        if(keyword!=null) {
+            condition.put("keyword",keyword);
+        }
+        if(maxPrice!=null) {
+            condition.put("maxPrice",maxPrice);
+        }
+        if(minPrice!=null) {
+            condition.put("minPrice",minPrice);
+        }
+        if(type!=null) {
+            condition.put("type",type);
+        }
+        //判断是否需要排序，排序的方式只有三种：点赞量，销量和评分
+        if(orderField!=null&&(orderField.equals("stars"))){
+            condition.put("orderField",orderField);
+        }
+        //判断排序的类型
+        if(orderType!=null){
+            condition.put("orderType",orderType);
+        }
+        return postService.findPosts(condition, pageNum, pageSize);
+    }
+
 
 
 }

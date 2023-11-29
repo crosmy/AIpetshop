@@ -2,6 +2,9 @@ package edu.whu.service;
 
 import edu.whu.domain.Transaction;
 import com.baomidou.mybatisplus.extension.service.IService;
+import edu.whu.exception.CustomException;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -12,8 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-11-14
  */
 public interface ITransactionService extends IService<Transaction> {
-    /**
-     * Functions: initiateTransaction(Transaction transaction), updateTransaction(Transaction transaction),
-     * getTransactionById(int transactionId).
-     */
+    Transaction createTransaction(Integer buyerId, Integer sellerId, BigDecimal amount) throws CustomException;
+
+    void updateTransactionStatus(Integer transactionId, String status) throws CustomException;
+
+    Transaction getTransaction(Integer transactionId) throws CustomException;
 }

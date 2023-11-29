@@ -18,8 +18,5 @@ public class MpConfig {
         return mpInterceptor;
     }
 
-    @Bean(name = {"registerPasswordEncoder"})
-    public PasswordEncoder registerPasswordEncoder() {
-        return new BCryptPasswordEncoder(); //BCrypt加密算法
-    }
+
 }

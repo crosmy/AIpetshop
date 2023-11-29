@@ -37,5 +37,7 @@ public class Transaction implements Serializable {
 
     private String status;
 
+    private BigDecimal amount;
+
 
 }

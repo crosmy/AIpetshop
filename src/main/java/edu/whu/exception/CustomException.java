@@ -11,6 +11,12 @@ public class CustomException extends Exception{
     public final static int USER_NOT_FOUND = 103;
     public final static int POST_NOT_COMPLETE = 104;
     public static final int POST_NOT_FOUND = 105;
+    public static final int QUERY_ERROR = 106;
+    public static final int CREATE_FAILED = 107;
+    public static final int TRANSACTION_NOT_FOUND = 108;
+    public static final int UPDATE_FAILED = 109;
+    public static final int SEND_FAILED = 110;
+    public static final int NO_CONVERSATION_FOUND = 111;
 
     int code; //自定义的错误代码
     public CustomException(int code,String message){

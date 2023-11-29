@@ -1,5 +1,8 @@
 package edu.whu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.whu.domain.Post;
 import edu.whu.dao.PostDao;
 import edu.whu.exception.CustomException;
@@ -10,9 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
-import static edu.whu.exception.CustomException.POST_NOT_COMPLETE;
-import static edu.whu.exception.CustomException.POST_NOT_FOUND;
+import static edu.whu.exception.CustomException.*;
 
 /**
  * <p>
@@ -73,9 +76,44 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
         postDao.deleteById(postId);
     }
 
+    @Transactional
     @Override
     public List<Post> getAllPosts() {
         List<Post> posts = postDao.selectList(null);
         return posts;
+    }
+
+    @Override
+    public IPage<Post> findPosts(Map<String, Object> condition, Integer pageNum, Integer pageSize) throws CustomException {
+        try {
+            QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+
+            // 检查是否有关键词搜索
+            if (condition.containsKey("keyword")) {
+                String keyword = (String) condition.get("keyword");
+                queryWrapper.nested(i -> i
+                        .like("title", keyword)
+                        .or()
+                        .like("content", keyword));
+            }
+            // 构建条件
+            queryWrapper.ge(condition.containsKey("minPrice"), "price", condition.get("minPrice"))
+                    .le(condition.containsKey("maxPrice"), "price", condition.get("maxPrice"))
+                    .eq(condition.containsKey("type"), "type", condition.get("type"));
+
+            // 添加排序条件
+            if (condition.containsKey("orderField") && condition.containsKey("orderType")) {
+                boolean isAsc = "asc".equalsIgnoreCase((String)condition.get("orderType"));
+                queryWrapper.orderBy(true, isAsc, (String) condition.get("orderField"));
+            }
+
+            // 执行分页查询
+            Page<Post> page = new Page<>(pageNum, pageSize);
+            return postDao.selectPage(page, queryWrapper);
+
+        } catch (Exception e) {
+            // 在遇到异常时抛出 CustomException
+            throw new CustomException(QUERY_ERROR, "在查询帖子时出现异常: " + e.getMessage());
+        }
     }
 }

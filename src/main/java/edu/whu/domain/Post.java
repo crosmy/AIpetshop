@@ -38,5 +38,8 @@ public class Post implements Serializable {
 
     private Integer petId;
 
+    private Integer price;
+
+    private Integer stars;
 
 }
