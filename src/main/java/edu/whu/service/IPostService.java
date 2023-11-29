@@ -29,6 +29,8 @@ public interface IPostService extends IService<Post> {
     List<Post> getAllPosts();
 
     IPage<Post> findPosts(Map<String, Object> condition, Integer pageNum, Integer pageSize) throws CustomException;
+
+    void ratePost(Long id, Integer star);
     /**
      * Functions: createPost(Post post), updatePost(Post post), getPostById(int postId), deletePost(int postId), getAllPosts().
      */

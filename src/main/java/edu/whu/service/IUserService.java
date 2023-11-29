@@ -17,4 +17,6 @@ public interface IUserService extends IService<User> {
     User getUser(String username);
     String authenticateUser(boolean isPasswordMatch, UserDetails userDetails) throws CustomException;
     User registerNewUser(User newUser) throws CustomException;
+
+    void uploadPhoto(String username, String photo);
 }
