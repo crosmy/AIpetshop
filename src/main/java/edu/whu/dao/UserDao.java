@@ -18,4 +18,5 @@ public interface UserDao extends BaseMapper<User> {
 
     @Select("select * from user where username =  #{username}")
     User getUser(String username);
+
 }

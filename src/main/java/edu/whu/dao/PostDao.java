@@ -3,6 +3,7 @@ package edu.whu.dao;
 import edu.whu.domain.Post;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -15,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PostDao extends BaseMapper<Post> {
 
+    @Update("UPDATE post SET stars = #{star} WHERE post_id = #{id}")
+    void updatePostRating(Long id, Integer star);
 }

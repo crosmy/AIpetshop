@@ -1,6 +1,7 @@
 package edu.whu.controller;
 
 
+import edu.whu.domain.LoginDto;
 import edu.whu.domain.User;
 import edu.whu.exception.CustomException;
 import edu.whu.service.IUserService;
@@ -31,7 +32,7 @@ public class AuthenticationController {
         return userService.registerNewUser(newUser);
     }
     @PostMapping("/login")
-    public String login(@RequestBody User user) throws CustomException {
+    public LoginDto login(@RequestBody User user) throws CustomException {
         if (user.getUsername() == null || user.getPassword() == null) {
             throw new CustomException(CustomException.USER_NOT_FOUND, "用户名或密码为空");
         }
@@ -40,6 +41,13 @@ public class AuthenticationController {
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
         boolean isPasswordMatch = passwordEncoder.matches(user.getPassword(),userDetails.getPassword());
-        return userService.authenticateUser(isPasswordMatch, userDetails);
+        LoginDto loginDto = new LoginDto();
+        String token = userService.authenticateUser(isPasswordMatch, userDetails);
+        Integer userId = userService.getUser(user.getUsername()).getUserId();
+        loginDto.setToken(token);
+        loginDto.setUserId(userId);
+
+        return loginDto;
+
     }
 }

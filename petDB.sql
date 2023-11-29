@@ -151,3 +151,14 @@ INSERT INTO `user` VALUES (9, 'user5', 'user5@qq.com', '$2a$10$D3M.eyHisi4Bo.XW5
 INSERT INTO `user` VALUES (10, 'google', 'google@qq.com', '$2a$10$riSX7U257E76WybpTyZx8.LD4xxSgNKGogX5ET/KPXB.yvAZcxqfu', 'user/query', NULL, NULL, '2023-11-29 09:56:36');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+# ------------------------------
+CREATE TABLE ratings (
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         post_id INT,
+                         pet_id INT,
+                         star INT,
+                         FOREIGN KEY (post_id) REFERENCES post(post_id),
+                         FOREIGN KEY (pet_id) REFERENCES post(pet_id)
+);

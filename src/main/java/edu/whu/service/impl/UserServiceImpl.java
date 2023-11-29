@@ -8,8 +8,6 @@ import edu.whu.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static edu.whu.exception.CustomException.UNAUTHORIZED;
@@ -45,6 +43,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
         }
         userDao.insert(newUser);
         return newUser;
+    }
+
+    @Override
+    public void uploadPhoto(String username, String photo) {
+        User user = userDao.getUser(username);
+        user.setProfilePictureUrl(photo);
     }
 
     @Override

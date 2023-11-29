@@ -116,4 +116,9 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
             throw new CustomException(QUERY_ERROR, "在查询帖子时出现异常: " + e.getMessage());
         }
     }
+
+    @Override
+    public void ratePost(Long id, Integer star) {
+        postDao.updatePostRating(id, star);
+    }
 }
