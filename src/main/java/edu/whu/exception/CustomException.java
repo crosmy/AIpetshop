@@ -18,6 +18,8 @@ public class CustomException extends Exception{
     public static final int SEND_FAILED = 110;
     public static final int NO_CONVERSATION_FOUND = 111;
     public static final int DATABASE_ERROR = 112;
+    public static final int VALIDATION_ERROR = 113;
+
     int code; //自定义的错误代码
     public CustomException(int code,String message){
         super(message);
