@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 29/11/2023 10:40:22
+ Date: 09/12/2023 15:35:59
 */
 
 SET NAMES utf8mb4;
@@ -76,13 +76,36 @@ CREATE TABLE `post`  (
   INDEX `pet_id`(`pet_id`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`pet_id`) REFERENCES `pet` (`pet_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES (4, 4, 'titleA', 'contentA', NULL, '2023-11-21 16:14:53', '2023-11-21 16:14:53', NULL, 0, NULL);
 INSERT INTO `post` VALUES (5, 2, 'titleTest', 'contentTest', NULL, '2023-11-22 14:34:22', '2023-11-22 14:34:22', NULL, 0, NULL);
+INSERT INTO `post` VALUES (6, 6, '11', '11', 'https://plus.unsplash.com/premium_photo-1661503280224-a86d7ad2a574?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 14:56:07', '2023-11-29 14:56:07', NULL, 100, NULL);
+INSERT INTO `post` VALUES (7, 6, '22', '22', 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 14:56:26', '2023-11-29 14:56:26', NULL, 100, NULL);
+INSERT INTO `post` VALUES (8, 6, '猫和狗', '猫和狗在睡觉', 'https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 14:57:03', '2023-11-29 14:57:03', NULL, 100, NULL);
+INSERT INTO `post` VALUES (9, 6, '这是动物', '不知道是什么动物', 'https://images.unsplash.com/photo-1592754862816-1a21a4ea2281?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 16:00:51', '2023-11-29 16:00:51', NULL, 100, NULL);
+INSERT INTO `post` VALUES (10, 6, '猫', '这是一只可爱的猫', 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 16:01:22', '2023-11-29 16:01:22', NULL, 100, NULL);
+INSERT INTO `post` VALUES (11, 6, '狗', '这是一只凶猛的狗', 'https://plus.unsplash.com/premium_photo-1663091202352-a19c438ca22d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-11-29 16:01:41', '2023-11-29 16:01:41', NULL, 100, NULL);
+INSERT INTO `post` VALUES (12, 11, '动物', '可爱，能动', 'https://plus.unsplash.com/premium_photo-1663036434780-998c35df5513?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D', '2023-12-06 16:36:08', '2023-12-06 16:36:08', NULL, 100, NULL);
+
+-- ----------------------------
+-- Table structure for ratings
+-- ----------------------------
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE `ratings`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NULL DEFAULT NULL,
+  `pet_id` int(11) NULL DEFAULT NULL,
+  `star` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `post_id`(`post_id`) USING BTREE,
+  INDEX `pet_id`(`pet_id`) USING BTREE,
+  CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`pet_id`) REFERENCES `post` (`pet_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for role
@@ -136,7 +159,7 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `username`(`username`) USING BTREE,
   UNIQUE INDEX `email`(`email`) USING BTREE,
   INDEX `role_id`(`role`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -149,16 +172,6 @@ INSERT INTO `user` VALUES (7, 'user456', 'user456@qq.com', '$2a$10$zHWQASfOupqkR
 INSERT INTO `user` VALUES (8, 'useruser', '', '$2a$10$i0SsiehVjJadnPVdokRki.YV08.keKwzf6yYvsYRiXuzBqgr6mhdy', 'user/query', NULL, NULL, '2023-11-27 13:09:01');
 INSERT INTO `user` VALUES (9, 'user5', 'user5@qq.com', '$2a$10$D3M.eyHisi4Bo.XW5m/WYO0fbHYx7oubf1jow7cgZy77yZZ4qB9Py', 'user/query', NULL, NULL, '2023-11-27 13:11:38');
 INSERT INTO `user` VALUES (10, 'google', 'google@qq.com', '$2a$10$riSX7U257E76WybpTyZx8.LD4xxSgNKGogX5ET/KPXB.yvAZcxqfu', 'user/query', NULL, NULL, '2023-11-29 09:56:36');
+INSERT INTO `user` VALUES (11, 'user', 'user@user.com', '$2a$10$XbDM251znvgQF1J.t8eAtezQ9mZX36JDXBQV8bGaU.0FhIrIiadj6', 'user/query', NULL, NULL, '2023-12-01 11:57:51');
 
 SET FOREIGN_KEY_CHECKS = 1;
-
-
-# ------------------------------
-CREATE TABLE ratings (
-                         id INT PRIMARY KEY AUTO_INCREMENT,
-                         post_id INT,
-                         pet_id INT,
-                         star INT,
-                         FOREIGN KEY (post_id) REFERENCES post(post_id),
-                         FOREIGN KEY (pet_id) REFERENCES post(pet_id)
-);

@@ -2,16 +2,17 @@ package edu.whu.service.impl;
 
 import edu.whu.domain.User;
 import edu.whu.dao.UserDao;
+import edu.whu.domain.UserDto;
 import edu.whu.exception.CustomException;
 import edu.whu.security.JwtTokenUtil;
 import edu.whu.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import static edu.whu.exception.CustomException.UNAUTHORIZED;
-import static edu.whu.exception.CustomException.USER_ALREADY_EXISTS;
+import static edu.whu.exception.CustomException.*;
 
 /**
  * <p>
@@ -37,18 +38,55 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
 
 
     @Override
-    public User registerNewUser(User newUser) throws CustomException {
+    public String registerNewUser(User newUser) throws CustomException {
         if (userDao.getUser(newUser.getUsername()) != null) {
             throw new CustomException(USER_ALREADY_EXISTS, "用户已存在，重新选择用户名");
         }
         userDao.insert(newUser);
-        return newUser;
+        return newUser.getUsername();
     }
 
     @Override
-    public void uploadPhoto(String username, String photo) {
-        User user = userDao.getUser(username);
-        user.setProfilePictureUrl(photo);
+    public void uploadPhoto(String username, String photo) throws CustomException {
+        try {
+            User user = userDao.getUser(username);
+            if (user == null) {
+                throw new CustomException(USER_NOT_FOUND, "用户不存在");
+            }
+            user.setProfilePictureUrl(photo);
+        } catch (Exception e) {
+            throw new CustomException(DATABASE_ERROR, "数据库访问错误");
+        }
+    }
+
+    @Override
+    public UserDto getUserDtoById(Integer userId) throws CustomException {
+        UserDto userDto = new UserDto();
+        try {
+            User user = userDao.selectById(userId);
+            if (user == null) {
+                throw new CustomException(USER_NOT_FOUND, "用户不存在");
+            }
+            BeanUtils.copyProperties(user, userDto);
+        } catch (Exception e) {
+            throw new CustomException(DATABASE_ERROR,"数据库访问错误");
+        }
+        return userDto;
+    }
+
+    @Override
+    public UserDto getUserDto(String username) throws CustomException {
+        UserDto userDto = new UserDto();
+        try {
+            User user = userDao.getUser(username);
+            if (user == null) {
+                throw new CustomException(USER_NOT_FOUND, "用户不存在");
+            }
+            BeanUtils.copyProperties(user, userDto);
+        } catch (Exception e) {
+            throw new CustomException(DATABASE_ERROR,"数据库访问错误");
+        }
+        return userDto;
     }
 
     @Override
