@@ -13,6 +13,7 @@
 
  Date: 09/12/2023 15:35:59
 */
+use petDB;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

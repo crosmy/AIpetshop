@@ -1,9 +1,14 @@
 package edu.whu.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.List;
+
+import edu.whu.handler.JsonIntegerTypeHandler;
+import edu.whu.handler.JsonStringTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,15 +35,15 @@ public class Post implements Serializable {
 
     private String content;
 
-    private String imageUrls;// JSON或逗号分隔的URLs
+    @TableField(typeHandler = JsonStringTypeHandler.class)
+    private List<String> imageUrls;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    private Integer petId;
-
-    private Integer price;
+    @TableField(typeHandler = JsonIntegerTypeHandler.class)
+    private List<Integer> petIds;
 
     private Integer stars;
 

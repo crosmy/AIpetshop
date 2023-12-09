@@ -40,6 +40,8 @@ public class Pet implements Serializable {
 
     private String vaccinations;
 
+    private Double price;
+
     private String photoUrl;
 
     private LocalDateTime createdAt;

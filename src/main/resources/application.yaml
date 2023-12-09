@@ -34,6 +34,7 @@ spring:
 #    allow-circular-references: true
 # ??mp???????????
 mybatis-plus:
+  type-handlers-package: edu.whu.handler
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
