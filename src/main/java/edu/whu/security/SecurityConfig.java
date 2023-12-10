@@ -29,7 +29,7 @@ public class SecurityConfig {
         http.cors();
         http.csrf().disable();   //关闭csrf过滤器
         http.authorizeRequests()
-                .antMatchers("/auth/login", "/auth/register").permitAll() //login、register接口直接放行
+                .antMatchers("/auth/login", "/auth/register", "/swagger-ui.html", "/swagger-ui/**", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll() //login、register接口直接放行
                 .anyRequest().authenticated()  //其他接口需要认证
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //添加jwtRequestFilter过滤器到UsernamePasswordAuthenticationFilter之前

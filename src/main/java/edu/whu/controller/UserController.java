@@ -1,9 +1,12 @@
 package edu.whu.controller;
 
 
+import edu.whu.domain.Favorite;
+import edu.whu.domain.Transaction;
 import edu.whu.domain.User;
 import edu.whu.domain.UserDto;
 import edu.whu.exception.CustomException;
+import edu.whu.service.IFavoriteService;
 import edu.whu.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,6 +35,8 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+
+
     @ApiOperation(value = "更新自己的头像")
     @PostMapping("/photo/{username}")
     public String uploadPhoto(@PathVariable String username, String photo) throws CustomException {
@@ -42,14 +49,6 @@ public class UserController {
     public UserDto getUserDetailById(@PathVariable Integer userId) throws CustomException {
         return userService.getUserDtoById(userId);
     }
-
-    @ApiOperation(value = "根据用户名获取用户信息")
-    @GetMapping("/name/{username}")
-    public UserDto getUserDetailByName(@PathVariable String username) throws CustomException {
-        return userService.getUserDto(username);
-    }
-
-
 
 }
 

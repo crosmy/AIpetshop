@@ -27,4 +27,6 @@ public class UserDto {
     private List<Post> posts;
 
     private List<Pet> pets;
+
+    private List<Favorite> favorites;
 }

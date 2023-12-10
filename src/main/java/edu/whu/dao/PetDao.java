@@ -3,6 +3,9 @@ package edu.whu.dao;
 import edu.whu.domain.Pet;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PetDao extends BaseMapper<Pet> {
 
+    @Select("SELECT * FROM pet WHERE owner_id = #{userId}")
+    List<Pet> getPetsByUserId(Integer userId);
 }

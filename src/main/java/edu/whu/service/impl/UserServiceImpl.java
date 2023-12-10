@@ -1,5 +1,10 @@
 package edu.whu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import edu.whu.dao.PetDao;
+import edu.whu.dao.PostDao;
+import edu.whu.domain.Pet;
+import edu.whu.domain.Post;
 import edu.whu.domain.User;
 import edu.whu.dao.UserDao;
 import edu.whu.domain.UserDto;
@@ -11,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static edu.whu.exception.CustomException.*;
 
@@ -27,6 +34,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    PostDao postDao;
+    @Autowired
+    PetDao petDao;
 
 
     @Autowired
@@ -68,21 +80,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
                 throw new CustomException(USER_NOT_FOUND, "用户不存在");
             }
             BeanUtils.copyProperties(user, userDto);
-        } catch (Exception e) {
-            throw new CustomException(DATABASE_ERROR,"数据库访问错误");
-        }
-        return userDto;
-    }
 
-    @Override
-    public UserDto getUserDto(String username) throws CustomException {
-        UserDto userDto = new UserDto();
-        try {
-            User user = userDao.getUser(username);
-            if (user == null) {
-                throw new CustomException(USER_NOT_FOUND, "用户不存在");
-            }
-            BeanUtils.copyProperties(user, userDto);
+            // 获取用户的帖子和宠物信息
+            List<Post> posts = postDao.getPostsByUserId(userId);
+            List<Pet> pets = petDao.getPetsByUserId(userId);
+
+            // 设置到UserDto对象中
+            userDto.setPosts(posts);
+            userDto.setPets(pets);
         } catch (Exception e) {
             throw new CustomException(DATABASE_ERROR,"数据库访问错误");
         }

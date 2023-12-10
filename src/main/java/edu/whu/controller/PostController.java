@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import edu.whu.domain.Post;
 import edu.whu.exception.CustomException;
 import edu.whu.service.IPostService;
+import edu.whu.service.IRatingsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @author Pet
  * @since 2023-11-14
  */
+
 
 @Api(tags = "帖子相关接口")
 @RestController
@@ -77,8 +79,8 @@ public class PostController {
     @ApiOperation(value = "根据关键字查询帖子",notes = "根据关键字查询帖子")
     @GetMapping("/query")
     public IPage<Post> findPost(@ApiParam("帖子关键字")@RequestParam(value = "keyword",required = false) String keyword,
-                                @ApiParam("宠物最低价格") @RequestParam(value = "minPrice",required = false)  Integer minPrice,
-                                @ApiParam("宠物最高价格") @RequestParam(value = "maxPrice",required = false)  Integer maxPrice,
+                                @ApiParam("用户名") @RequestParam(value = "username",required = false) String username,
+                                @ApiParam("用户id") @RequestParam(value = "userId",required = false) Integer userId,
                                 @ApiParam("排序字段") @RequestParam(value = "orderField",required = false)  String orderField,
                                 @ApiParam("排序方式") @RequestParam(value = "orderType",required = false)  String orderType,
                                 @ApiParam("宠物类别") @RequestParam(value = "type",required = false)  String type,
@@ -88,17 +90,20 @@ public class PostController {
         if(keyword!=null) {
             condition.put("keyword",keyword);
         }
-        if(maxPrice!=null) {
-            condition.put("maxPrice",maxPrice);
-        }
-        if(minPrice!=null) {
-            condition.put("minPrice",minPrice);
-        }
         if(type!=null) {
             condition.put("type",type);
         }
-        //判断是否需要排序，排序的方式只有三种：点赞量，销量和评分
+        if(username!=null) {
+            condition.put("username",username);
+        }
+        if(userId!=null) {
+            condition.put("userId",userId);
+        }
+        //判断是否需要排序，排序的方式评分，时间
         if(orderField!=null&&(orderField.equals("stars"))){
+            condition.put("orderField",orderField);
+        }
+        if(orderField!=null&&(orderField.equals("createTime"))){
             condition.put("orderField",orderField);
         }
         //判断排序的类型
@@ -106,6 +111,18 @@ public class PostController {
             condition.put("orderType",orderType);
         }
         return postService.findPosts(condition, pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "获取帖子平均评分",notes = "获取帖子平均评分")
+    @GetMapping("/{postId}/averageRating")
+    public Double getAverageRating(@PathVariable Integer postId) throws CustomException {
+        return postService.getAverageRating(postId);
+    }
+
+    @ApiOperation(value = "根据发帖人id获取帖子",notes = "根据发帖人id获取帖子")
+    @GetMapping("/getByUserId/{userId}")
+    public List<Post> getPostsByUserId(@PathVariable Integer userId) throws CustomException {
+        return postService.getPostsByUserId(userId);
     }
 
 

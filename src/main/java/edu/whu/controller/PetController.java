@@ -4,6 +4,7 @@ package edu.whu.controller;
 import edu.whu.domain.Pet;
 import edu.whu.exception.CustomException;
 import edu.whu.service.IPetService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author Pet
  * @since 2023-11-14
  */
+@Api(tags = "宠物相关接口")
 @RestController
 @RequestMapping("/pet")
 public class PetController {

@@ -22,6 +22,4 @@ public interface IUserService extends IService<User> {
     void uploadPhoto(String username, String photo) throws CustomException;
 
     UserDto getUserDtoById(Integer userId) throws CustomException;
-
-    UserDto getUserDto(String username) throws CustomException;
 }

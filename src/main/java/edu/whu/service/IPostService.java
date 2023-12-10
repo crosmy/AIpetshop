@@ -30,7 +30,10 @@ public interface IPostService extends IService<Post> {
 
     IPage<Post> findPosts(Map<String, Object> condition, Integer pageNum, Integer pageSize) throws CustomException;
 
-    void ratePost(Long id, Integer star);
+    Double getAverageRating(Integer postId) throws CustomException;
+
+    List<Post> getPostsByUserId(Integer userId) throws CustomException;
+
     /**
      * Functions: createPost(Post post), updatePost(Post post), getPostById(int postId), deletePost(int postId), getAllPosts().
      */

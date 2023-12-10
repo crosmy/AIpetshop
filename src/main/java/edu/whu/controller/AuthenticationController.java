@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@Api
 @RestController
 @CrossOrigin
 @RequestMapping("/auth")
+@Api(tags = "用户认证相关接口")
 public class AuthenticationController {
     @Autowired
     private IUserService userService;

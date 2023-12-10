@@ -20,6 +20,10 @@ public class CustomException extends Exception{
     public static final int DATABASE_ERROR = 112;
     public static final int VALIDATION_ERROR = 113;
     public static final int PET_NOT_FOUND = 114;
+    public static final int FAVORITE_CHECK_ERROR = 115;
+    public static final int FAVORITE_ADD_ERROR = 116;
+    public static final int FAVORITE_REMOVE_ERROR = 117;
+    public static final int FAVORITE_LIST_ERROR = 118;
 
     int code; //自定义的错误代码
     public CustomException(int code,String message){

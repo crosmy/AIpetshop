@@ -11,11 +11,21 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 10/12/2023 15:08:42
+ Date: 10/12/2023 21:25:17
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for favorites
+-- ----------------------------
+DROP TABLE IF EXISTS `favorites`;
+CREATE TABLE `favorites`  (
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `post_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for message
@@ -55,7 +65,12 @@ CREATE TABLE `pet`  (
   PRIMARY KEY (`pet_id`) USING BTREE,
   INDEX `owner_id`(`owner_id`) USING BTREE,
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of pet
+-- ----------------------------
+INSERT INTO `pet` VALUES (2, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-10 16:25:05', '2023-12-10 16:25:05', 4.00);
 
 -- ----------------------------
 -- Table structure for post
@@ -70,7 +85,7 @@ CREATE TABLE `post`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `pet_ids` json NULL,
-  `stars` int(11) NULL DEFAULT NULL,
+  `stars` double NULL DEFAULT NULL,
   PRIMARY KEY (`post_id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -89,11 +104,11 @@ DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE `ratings`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NULL DEFAULT NULL,
-  `pet_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
   `star` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `post_id`(`post_id`) USING BTREE,
-  INDEX `pet_id`(`pet_id`) USING BTREE,
+  INDEX `pet_id`(`user_id`) USING BTREE,
   CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

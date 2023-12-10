@@ -3,11 +3,13 @@ package edu.whu.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import edu.whu.dao.RatingsDao;
 import edu.whu.domain.Post;
 import edu.whu.dao.PostDao;
 import edu.whu.exception.CustomException;
 import edu.whu.service.IPostService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import edu.whu.service.IRatingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,7 +96,11 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
                 queryWrapper.nested(i -> i
                         .like("title", keyword)
                         .or()
-                        .like("content", keyword));
+                        .like("content", keyword))
+                        .or()
+                        .like("username", keyword)
+                        .or()
+                        .like("userId", keyword);
             }
             // 构建条件
             queryWrapper.eq(condition.containsKey("type"), "type", condition.get("type"));
@@ -116,7 +122,28 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
     }
 
     @Override
-    public void ratePost(Long id, Integer star) {
-        postDao.updatePostRating(id, star);
+    public Double getAverageRating(Integer postId) throws CustomException {
+        if (postId == null) {
+            throw new CustomException(CustomException.VALIDATION_ERROR, "postId 不为空");
+        }
+
+        try {
+            return postDao.selectById(postId).getStars();
+        } catch (Exception e) {
+            throw new CustomException(CustomException.DATABASE_ERROR, "求评分异常 " + e.getMessage());
+        }
     }
+
+    @Override
+    public List<Post> getPostsByUserId(Integer userId) throws CustomException {
+        try {
+            QueryWrapper<Post> wrapper = new QueryWrapper<>();
+            wrapper.eq("user_id", userId);
+            return postDao.selectList(wrapper);
+        } catch (Exception e) {
+            throw new CustomException(DATABASE_ERROR, "获取用户帖子列表时出错");
+        }
+    }
+
+
 }

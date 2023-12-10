@@ -8,6 +8,6 @@ import lombok.Data;
 public class Ratings {
     private Integer id;
     private Integer postId;
-    private Integer petId;
+    private Integer userId;
     private Integer star;
 }

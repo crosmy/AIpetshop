@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import edu.whu.exception.CustomException;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +21,6 @@ public interface ITransactionService extends IService<Transaction> {
     void updateTransactionStatus(Integer transactionId, String status) throws CustomException;
 
     Transaction getTransaction(Integer transactionId) throws CustomException;
+
+    List<Transaction> getOrderList(Integer userId) throws CustomException;
 }

@@ -1,5 +1,6 @@
 package edu.whu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import edu.whu.domain.Transaction;
 import edu.whu.dao.TransactionDao;
 import edu.whu.exception.CustomException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static edu.whu.exception.CustomException.*;
 
@@ -65,5 +67,16 @@ public class TransactionServiceImpl extends ServiceImpl<TransactionDao, Transact
             throw new CustomException(TRANSACTION_NOT_FOUND, "交易不存在");
         }
         return transaction;
+    }
+
+    @Override
+    public List<Transaction> getOrderList(Integer userId) throws CustomException {
+        try {
+            QueryWrapper<Transaction> wrapper = new QueryWrapper<>();
+            wrapper.eq("buyer_id", userId).or().eq("seller_id", userId);
+            return transactionDao.selectList(wrapper);
+        } catch (Exception e) {
+            throw new CustomException(DATABASE_ERROR, "获取订单列表时出错");
+        }
     }
 }
