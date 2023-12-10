@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 10/12/2023 13:16:12
+ Date: 10/12/2023 15:08:42
 */
 
 SET NAMES utf8mb4;
@@ -74,12 +74,13 @@ CREATE TABLE `post`  (
   PRIMARY KEY (`post_id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (15, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-09 23:49:23', '2023-12-09 23:49:23', '[1, 3]', NULL);
+INSERT INTO `post` VALUES (21, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:42', '2023-12-10 15:07:42', '[\"8\", \"6\"]', NULL);
+INSERT INTO `post` VALUES (22, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:48', '2023-12-10 15:07:48', '[\"1\", \"2\"]', NULL);
 
 -- ----------------------------
 -- Table structure for ratings

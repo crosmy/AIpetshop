@@ -11,29 +11,29 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JsonStringTypeHandler extends BaseTypeHandler<List<String>> {
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, List<String> parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, toJson(parameter));
+        ps.setString(i, toJsonFromString(parameter));
     }
 
     @Override
     public List<String> getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return fromJson(rs.getString(columnName), new TypeReference<List<String>>() {});
+        return fromJsonToString(rs.getString(columnName), new TypeReference<List<String>>() {});
     }
 
     @Override
     public List<String> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return fromJson(rs.getString(columnIndex), new TypeReference<List<String>>() {});
+        return fromJsonToString(rs.getString(columnIndex), new TypeReference<List<String>>() {});
     }
 
     @Override
     public List<String> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return fromJson(cs.getString(columnIndex), new TypeReference<List<String>>() {});
+        return fromJsonToString(cs.getString(columnIndex), new TypeReference<List<String>>() {});
     }
 
-    private String toJson(List<String> param) {
+    private String toJsonFromString(List<String> param) {
         try {
             return mapper.writeValueAsString(param);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class JsonStringTypeHandler extends BaseTypeHandler<List<String>> {
         }
     }
 
-    private List<String> fromJson(String json, TypeReference<List<String>> typeReference) {
+    private List<String> fromJsonToString(String json, TypeReference<List<String>> typeReference) {
         try {
             return mapper.readValue(json, typeReference);
         } catch (Exception e) {

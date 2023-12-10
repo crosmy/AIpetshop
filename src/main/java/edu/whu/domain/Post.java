@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.List;
 
-import edu.whu.handler.JsonIntegerTypeHandler;
 import edu.whu.handler.JsonStringTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,8 +41,8 @@ public class Post implements Serializable {
 
     private LocalDateTime updatedAt;
 
-    @TableField(typeHandler = JsonIntegerTypeHandler.class)
-    private List<Integer> petIds;
+    @TableField(typeHandler = JsonStringTypeHandler.class)
+    private List<String> petIds;
 
     private Integer stars;
 
