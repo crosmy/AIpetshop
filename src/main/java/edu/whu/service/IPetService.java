@@ -20,11 +20,11 @@ import java.util.Map;
 public interface IPetService extends IService<Pet> {
     void addPet(Pet pet) throws CustomException;
 
-    void deletePet(Integer petId);
+    void deletePet(Integer petId) throws CustomException;
 
-    void updatePet(Pet pet);
+    void updatePet(Pet pet) throws CustomException;
 
-    Pet getPetById(Integer petId);
+    Pet getPetById(Integer petId) throws CustomException;
 
     List<Pet> getAllPets();
 

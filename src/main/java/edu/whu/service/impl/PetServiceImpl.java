@@ -40,17 +40,30 @@ public class PetServiceImpl extends ServiceImpl<PetDao, Pet> implements IPetServ
     }
 
     @Override
-    public void deletePet(Integer petId) {
+    public void deletePet(Integer petId) throws CustomException {
+        Pet pet = petDao.selectById(petId);
+        if (pet == null) {
+            throw new CustomException(CustomException.PET_NOT_FOUND, "宠物不存在");
+        }
+
         petDao.deleteById(petId);
     }
 
     @Override
-    public void updatePet(Pet pet) {
+    public void updatePet(Pet pet) throws CustomException {
+        Pet existingPet = petDao.selectById(pet.getPetId());
+        if (existingPet == null) {
+            throw new CustomException(CustomException.PET_NOT_FOUND, "宠物不存在");
+        }
         petDao.updateById(pet);
     }
 
     @Override
-    public Pet getPetById(Integer petId) {
+    public Pet getPetById(Integer petId) throws CustomException {
+        Pet pet = petDao.selectById(petId);
+        if (pet == null) {
+            throw new CustomException(CustomException.PET_NOT_FOUND, "宠物不存在");
+        }
         return petDao.selectById(petId);
     }
 

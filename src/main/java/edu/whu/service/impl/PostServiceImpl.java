@@ -97,9 +97,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
                         .like("content", keyword));
             }
             // 构建条件
-            queryWrapper.ge(condition.containsKey("minPrice"), "price", condition.get("minPrice"))
-                    .le(condition.containsKey("maxPrice"), "price", condition.get("maxPrice"))
-                    .eq(condition.containsKey("type"), "type", condition.get("type"));
+            queryWrapper.eq(condition.containsKey("type"), "type", condition.get("type"));
 
             // 添加排序条件
             if (condition.containsKey("orderField") && condition.containsKey("orderType")) {
