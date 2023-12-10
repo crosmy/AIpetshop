@@ -105,4 +105,11 @@ public class PetServiceImpl extends ServiceImpl<PetDao, Pet> implements IPetServ
             throw new CustomException(QUERY_ERROR, "在查询宠物时出现异常: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<Pet> getPetsByOwnerId(Integer ownerId) {
+        QueryWrapper<Pet> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("owner_id", ownerId);
+        return petDao.selectList(queryWrapper);
+    }
 }

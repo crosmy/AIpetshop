@@ -36,21 +36,21 @@ public class PetController {
     @PostMapping("/add")
     public String addPet(@RequestBody Pet pet) throws CustomException {
         petService.addPet(pet);
-        return "成功添加宠物" + pet.getName();
+        return "成功添加宠物" + pet.getPetId();
     }
 
     @ApiOperation(value = "删除宠物",notes = "用来删除宠物")
     @DeleteMapping("/delete/{petId}")
     public String deletePet(@PathVariable Integer petId) throws CustomException {
         petService.deletePet(petId);
-        return "成功删除宠物";
+        return "成功删除宠物" + petId;
     }
 
     @ApiOperation(value = "更新宠物",notes = "用来更新宠物信息")
     @PutMapping("/update")
     public String updatePet(@RequestBody Pet pet) throws CustomException {
         petService.updatePet(pet);
-        return "成功更新宠物" + pet.getName();
+        return "成功更新宠物" + pet.getPetId();
     }
 
     @ApiOperation(value = "获取宠物",notes = "用来获取指定宠物的信息")
@@ -63,6 +63,12 @@ public class PetController {
     @GetMapping("/getAll")
     public List<Pet> getAllPets() {
         return petService.getAllPets();
+    }
+
+    @ApiOperation(value = "根据主人id获取宠物",notes = "用来获取指定主人的所有宠物")
+    @GetMapping("/getByOwnerId/{ownerId}")
+    public List<Pet> getPetsByOwnerId(@PathVariable Integer ownerId) {
+        return petService.getPetsByOwnerId(ownerId);
     }
 
 }
