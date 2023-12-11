@@ -76,7 +76,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @ApiOperation(value = "根据关键字查询帖子",notes = "根据关键字查询帖子")
+    @ApiOperation(value = "根据关键字搜索帖子",notes = "条件之间相互独立，是与的关系，根据关键字搜索帖子，参数都是可选的，keyword用来匹配帖子内的大部分字段，匹配不了数组，username，type和userId分别用来精准匹配对应的字段")
     @GetMapping("/query")
     public IPage<Post> findPost(@ApiParam("帖子关键字")@RequestParam(value = "keyword",required = false) String keyword,
                                 @ApiParam("用户名") @RequestParam(value = "username",required = false) String username,
@@ -85,7 +85,9 @@ public class PostController {
                                 @ApiParam("排序方式") @RequestParam(value = "orderType",required = false)  String orderType,
                                 @ApiParam("宠物类别") @RequestParam(value = "type",required = false)  String type,
                                 @ApiParam("页码")@RequestParam(defaultValue = "0")Integer pageNum,
-                                @ApiParam("每页记录数") @RequestParam(defaultValue = "10")Integer pageSize) throws CustomException {
+                                @ApiParam("每页记录数") @RequestParam(defaultValue = "10")Integer pageSize,
+                                @ApiParam("宠物id") @RequestParam(value = "petId",required = false)  Integer petId,
+                                @ApiParam("宠物名字") @RequestParam(value = "petName",required = false)  String petName) throws CustomException {
         Map<String,Object> condition=new HashMap<>();
         if(keyword!=null) {
             condition.put("keyword",keyword);
@@ -98,6 +100,12 @@ public class PostController {
         }
         if(userId!=null) {
             condition.put("userId",userId);
+        }
+        if(petId!=null) {
+            condition.put("userId",petId);
+        }
+        if(petName!=null) {
+            condition.put("petName",petName);
         }
         //判断是否需要排序，排序的方式评分，时间
         if(orderField!=null&&(orderField.equals("stars"))){

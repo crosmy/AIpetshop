@@ -46,4 +46,9 @@ public class Post implements Serializable {
 
     private Double stars;
 
+    private String username;
+
+    @TableField(typeHandler = JsonStringTypeHandler.class)
+    private List<String> petNames;
+
 }

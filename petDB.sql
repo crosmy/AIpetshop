@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 11/12/2023 14:43:19
+ Date: 11/12/2023 21:08:19
 */
 
 SET NAMES utf8mb4;
@@ -88,12 +88,13 @@ CREATE TABLE `pet`  (
   PRIMARY KEY (`pet_id`) USING BTREE,
   INDEX `owner_id`(`owner_id`) USING BTREE,
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pet
 -- ----------------------------
 INSERT INTO `pet` VALUES (2, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-10 16:25:05', '2023-12-10 16:25:05', 4.00);
+INSERT INTO `pet` VALUES (3, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-11 20:22:46', '2023-12-11 20:22:46', 4.00);
 
 -- ----------------------------
 -- Table structure for post
@@ -109,6 +110,8 @@ CREATE TABLE `post`  (
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `pet_ids` json NULL,
   `stars` double NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `pet_names` json NULL,
   PRIMARY KEY (`post_id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -117,8 +120,8 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (21, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:42', '2023-12-10 15:07:42', '[\"8\", \"6\"]', NULL);
-INSERT INTO `post` VALUES (22, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:48', '2023-12-10 15:07:48', '[\"1\", \"2\"]', NULL);
+INSERT INTO `post` VALUES (21, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:42', '2023-12-10 15:07:42', '[\"8\", \"6\"]', NULL, NULL, NULL);
+INSERT INTO `post` VALUES (22, 2, 'titleTest', 'contentTest', '[\"https://www.quanjing.com/imgbuy/qj8114530399.html\", \"https://www.quanjing.com/imgbuy/qj8114530399.html\"]', '2023-12-10 15:07:48', '2023-12-10 15:07:48', '[\"1\", \"2\"]', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ratings
@@ -200,6 +203,6 @@ INSERT INTO `user` VALUES (7, 'user456', 'user456@qq.com', '$2a$10$zHWQASfOupqkR
 INSERT INTO `user` VALUES (8, 'useruser', '', '$2a$10$i0SsiehVjJadnPVdokRki.YV08.keKwzf6yYvsYRiXuzBqgr6mhdy', 'user/query', NULL, NULL, '2023-11-27 13:09:01');
 INSERT INTO `user` VALUES (9, 'user5', 'user5@qq.com', '$2a$10$D3M.eyHisi4Bo.XW5m/WYO0fbHYx7oubf1jow7cgZy77yZZ4qB9Py', 'user/query', NULL, NULL, '2023-11-27 13:11:38');
 INSERT INTO `user` VALUES (10, 'google', 'google@qq.com', '$2a$10$riSX7U257E76WybpTyZx8.LD4xxSgNKGogX5ET/KPXB.yvAZcxqfu', 'user/query', NULL, NULL, '2023-11-29 09:56:36');
-INSERT INTO `user` VALUES (11, 'user', 'user@user.com', '$2a$10$XbDM251znvgQF1J.t8eAtezQ9mZX36JDXBQV8bGaU.0FhIrIiadj6', 'user/query', NULL, NULL, '2023-12-01 11:57:51');
+INSERT INTO `user` VALUES (11, 'user', 'user@user.com', '$2a$10$XbDM251znvgQF1J.t8eAtezQ9mZX36JDXBQV8bGaU.0FhIrIiadj6', 'user/query', '\"https://pic.quanjing.com/ex/3v/QJ6395044826.jpg@!350h\"', NULL, '2023-12-01 11:57:51');
 
 SET FOREIGN_KEY_CHECKS = 1;

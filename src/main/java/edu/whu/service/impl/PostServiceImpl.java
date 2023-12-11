@@ -96,19 +96,31 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
                 queryWrapper.nested(i -> i
                         .like("title", keyword)
                         .or()
-                        .like("content", keyword))
+                        .like("content", keyword)
                         .or()
                         .like("username", keyword)
                         .or()
-                        .like("userId", keyword);
+                        .like("user_id", keyword));
             }
             // 构建条件
             queryWrapper.eq(condition.containsKey("type"), "type", condition.get("type"));
+            queryWrapper.eq(condition.containsKey("username"), "username", condition.get("username"));
+            queryWrapper.eq(condition.containsKey("userId"), "user_id", condition.get("userId"));
+
+            if (condition.containsKey("petId")) {
+                String petId = (String) condition.get("petId");
+                queryWrapper.apply("JSON_CONTAINS(petIds, {0})", petId);
+            }
+
+            if (condition.containsKey("petName")) {
+                String petName = (String) condition.get("petName");
+                queryWrapper.apply("JSON_CONTAINS(petNames, {0})", petName);
+            }
 
             // 添加排序条件
             if (condition.containsKey("orderField") && condition.containsKey("orderType")) {
                 boolean isAsc = "asc".equalsIgnoreCase((String)condition.get("orderType"));
-                queryWrapper.orderBy(true, isAsc, (String) condition.get("orderField"));
+                queryWrapper.orderBy(true, isAsc, toColumnName((String) condition.get("orderField")));
             }
 
             // 执行分页查询
@@ -143,6 +155,22 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
         } catch (Exception e) {
             throw new CustomException(DATABASE_ERROR, "获取用户帖子列表时出错");
         }
+    }
+
+    /**
+     * 将字段名转换为数据库列名
+     * @param fieldName
+     * @return
+     */
+    private String toColumnName(String fieldName) {
+        StringBuilder columnName = new StringBuilder();
+        for (char c : fieldName.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                columnName.append("_");
+            }
+            columnName.append(Character.toLowerCase(c));
+        }
+        return columnName.toString();
     }
 
 
