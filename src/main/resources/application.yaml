@@ -45,4 +45,6 @@ mybatis-plus:
 jwt:
   secret: db9d654c4860d4d37406d1ffcd92be5756a9ea94c03464aba0e475dc88932fee2278a23f6e6953a24d089ad09d99ac9d07ebd223a7f264fa2a7bea8a779c7946
 
-
+api:
+  key: sk-iF5iYAjLi5x8S5qTWfpkVU6YqAA6xDTVyOzllEiIgv343Q2i
+  url: https://api.chatanywhere.com.cn/v1/chat/completions

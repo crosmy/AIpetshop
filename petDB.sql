@@ -11,11 +11,23 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 10/12/2023 21:25:17
+ Date: 11/12/2023 13:50:27
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for chat_record
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_record`;
+CREATE TABLE `chat_record`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `model_response` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `timestamp` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for favorites
