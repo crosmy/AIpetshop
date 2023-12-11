@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
             if (user == null) {
                 throw new CustomException(USER_NOT_FOUND, "用户不存在");
             }
-            user.setProfilePictureUrl(photo);
+            userDao.updateUserPhoto(username, photo);
         } catch (Exception e) {
             throw new CustomException(DATABASE_ERROR, "数据库访问错误");
         }

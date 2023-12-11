@@ -39,7 +39,7 @@ public class UserController {
 
     @ApiOperation(value = "更新自己的头像")
     @PostMapping("/photo/{username}")
-    public String uploadPhoto(@PathVariable String username, String photo) throws CustomException {
+    public String uploadPhoto(@PathVariable String username, @RequestBody String photo) throws CustomException {
         userService.uploadPhoto(username, photo);
         return "上传头像成功";
     }
