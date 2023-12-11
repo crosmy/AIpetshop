@@ -13,5 +13,8 @@ public class ChatRecord {
     private String modelResponse;
     private Date timestamp;
 
+    private Integer userId;
+    private Integer sellerId;
+
 }
 

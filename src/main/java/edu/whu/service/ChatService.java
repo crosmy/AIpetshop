@@ -1,17 +1,19 @@
 package edu.whu.service;
 
+import edu.whu.config.ChatBotConfig;
 import edu.whu.dao.ChatRecordDao;
 import edu.whu.domain.ChatRecord;
+import edu.whu.domain.MessageDto;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,17 +25,34 @@ public class ChatService {
     @Autowired
     private ChatRecordDao chatRecordDao;
 
+    @Autowired
+    private ChatBotConfig chatBotConfig;
+
     @Value("${api.url}")
     private String apiUrl;
 
     @Value("${api.key}")
     private String apiKey;
 
-    public void chatWithModelAndSave(String userMessage) throws Exception {
+    public String chatWithModelAndSave(MessageDto messageDto) throws Exception {
+
+        List<String> prompts = chatBotConfig.getPrompts().getOrDefault(messageDto.getPromptKey(), Collections.emptyList());
+
+        String userMessage = messageDto.getMessage();
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         // 构建消息部分
         List<Map<String, String>> messagesList = new ArrayList<>();
+
+        // 添加预置的提示词
+        for (String prompt : prompts) {
+            Map<String, String> contextMessage = new HashMap<>();
+            contextMessage.put("role", "system");
+            contextMessage.put("content", prompt);
+            messagesList.add(contextMessage);
+        }
+
         Map<String, String> messageMap = new HashMap<>();
         messageMap.put("role", "user");
         messageMap.put("content", userMessage);
@@ -61,7 +80,9 @@ public class ChatService {
 
         String modelResponse = parseModelResponse(response.getBody());
 
-        saveChatRecord(userMessage, modelResponse);
+        saveChatRecord(userMessage, modelResponse, messageDto.getUserId(), messageDto.getSellerId());
+
+        return modelResponse;
     }
 
     private String parseModelResponse(String responseBody) throws Exception {
@@ -75,8 +96,10 @@ public class ChatService {
         return null;
     }
 
-    private void saveChatRecord(String userMessage, String modelResponse) {
+    private void saveChatRecord(String userMessage, String modelResponse, Integer userId, Integer sellerId) {
         ChatRecord record = new ChatRecord();
+        record.setUserId(userId);
+        record.setSellerId(sellerId);
         record.setUserMessage(userMessage);
         record.setModelResponse(modelResponse);
         chatRecordDao.insert(record);

@@ -48,3 +48,13 @@ jwt:
 api:
   key: sk-iF5iYAjLi5x8S5qTWfpkVU6YqAA6xDTVyOzllEiIgv343Q2i
   url: https://api.chatanywhere.com.cn/v1/chat/completions
+
+chatbot:
+  prompts:
+    petStore:
+      - "欢迎来到宠物商城智能客服，我可以帮助您解答有关宠物购买、护理等问题。"
+      - "这里是宠物商城，您可以咨询任何宠物相关的问题，比如宠物食品、宠物护理等。"
+    general:
+      - "您好，我是通用智能客服，有什么可以帮到您的？"
+      - "问我任何问题，我会尽力提供帮助。"
+

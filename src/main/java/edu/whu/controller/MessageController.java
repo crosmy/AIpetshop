@@ -36,8 +36,8 @@ public class MessageController {
     // 发送消息
     @ApiOperation(value = "发送消息", notes = "参数：senderId, receiverId, content")
     @PostMapping("/send")
-    public Message sendMessage(@RequestBody MessageDto messageDto) throws CustomException {
-        return messageService.sendMessage(messageDto.getSenderId(), messageDto.getReceiverId(), messageDto.getContent());
+    public Message sendMessage(@RequestBody Message message) throws CustomException {
+        return messageService.sendMessage(message.getSenderId(), message.getReceiverId(), message.getContent());
     }
 
     // 获取对话历史
