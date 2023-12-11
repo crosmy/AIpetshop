@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : AIpetshopdb
+ Source Server         : connect-local
  Source Server Type    : MySQL
- Source Server Version : 80032
+ Source Server Version : 50728
  Source Host           : localhost:3306
  Source Schema         : petdb
 
  Target Server Type    : MySQL
- Target Server Version : 80032
+ Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 12/12/2023 00:23:16
+ Date: 12/12/2023 00:50:50
 */
 
 SET NAMES utf8mb4;
@@ -22,14 +22,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `chat_record`;
 CREATE TABLE `chat_record`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_message` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
-  `model_response` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
-  `timestamp` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int NULL DEFAULT NULL,
-  `seller_id` int NULL DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `model_response` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `timestamp` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `user_id` int(11) NULL DEFAULT NULL,
+  `seller_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of chat_record
@@ -49,10 +49,10 @@ INSERT INTO `chat_record` VALUES (16, '能否为我推荐一本书？', '非常�
 -- ----------------------------
 DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites`  (
-  `user_id` int NOT NULL,
-  `post_id` int NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`, `post_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of favorites
@@ -64,50 +64,46 @@ INSERT INTO `favorites` VALUES (2, 24);
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message`  (
-  `message_id` int NOT NULL AUTO_INCREMENT,
-  `sender_id` int NOT NULL,
-  `receiver_id` int NOT NULL,
-  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `timestamp` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`message_id`) USING BTREE,
-  INDEX `sender_id`(`sender_id` ASC) USING BTREE,
-  INDEX `receiver_id`(`receiver_id` ASC) USING BTREE,
+  INDEX `sender_id`(`sender_id`) USING BTREE,
+  INDEX `receiver_id`(`receiver_id`) USING BTREE,
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of message
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for pet
 -- ----------------------------
 DROP TABLE IF EXISTS `pet`;
 CREATE TABLE `pet`  (
-  `pet_id` int NOT NULL AUTO_INCREMENT,
-  `owner_id` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `breed` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `age` int NULL DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
-  `health_information` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
-  `vaccinations` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
-  `photo_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `pet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `breed` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `age` int(11) NULL DEFAULT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `health_information` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `vaccinations` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `photo_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `price` decimal(10, 2) NULL DEFAULT NULL,
   `is_sold` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`pet_id`) USING BTREE,
-  INDEX `owner_id`(`owner_id` ASC) USING BTREE,
+  INDEX `owner_id`(`owner_id`) USING BTREE,
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pet
 -- ----------------------------
-INSERT INTO `pet` VALUES (4, 2, '柴犬', '狗', '柴犬', 3, '可爱', '健康', '接种', 'https://pic.52112.com/180108/DOG/ztuo2nUs8z.jpg', '2023-12-11 23:29:14', '2023-12-11 23:29:14', 5000.00, NULL);
+INSERT INTO `pet` VALUES (4, 2, '柴犬', '狗', '柴犬', 3, '可爱', '健康', '接种', 'https://pic.52112.com/180108/DOG/ztuo2nUs8z.jpg', '2023-12-11 23:29:14', '2023-12-11 23:29:14', 5000.00, 1);
 INSERT INTO `pet` VALUES (5, 2, '小程', '鱼', '热带鱼', 1, '橙色', '健康', '无', 'https://pic.quanjing.com/ue/jp/QJ8144942917.jpg@!350h', '2023-12-11 23:30:06', '2023-12-11 23:30:06', 30.00, NULL);
 
 -- ----------------------------
@@ -115,21 +111,21 @@ INSERT INTO `pet` VALUES (5, 2, '小程', '鱼', '热带鱼', 1, '橙色', '健�
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`  (
-  `post_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `image_urls` json NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `pet_ids` json NULL,
   `stars` double NULL DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `pet_names` json NULL,
   PRIMARY KEY (`post_id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
@@ -141,81 +137,69 @@ INSERT INTO `post` VALUES (24, 2, '一只柴犬', '柴犬很可爱', '[\"https:/
 -- ----------------------------
 DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE `ratings`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `post_id` int NULL DEFAULT NULL,
-  `user_id` int NULL DEFAULT NULL,
-  `star` int NULL DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `star` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `post_id`(`post_id` ASC) USING BTREE,
-  INDEX `pet_id`(`user_id` ASC) USING BTREE,
+  INDEX `post_id`(`post_id`) USING BTREE,
+  INDEX `pet_id`(`user_id`) USING BTREE,
   CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of ratings
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `role_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `authorities` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `authorities` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`role_id`) USING BTREE,
-  UNIQUE INDEX `name`(`name` ASC) USING BTREE,
-  UNIQUE INDEX `role_pk`(`name` ASC) USING BTREE,
-  UNIQUE INDEX `role_pk2`(`name` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of role
--- ----------------------------
+  UNIQUE INDEX `name`(`name`) USING BTREE,
+  UNIQUE INDEX `role_pk`(`name`) USING BTREE,
+  UNIQUE INDEX `role_pk2`(`name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for transaction
 -- ----------------------------
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction`  (
-  `transaction_id` int NOT NULL AUTO_INCREMENT,
-  `seller_id` int NOT NULL,
-  `buyer_id` int NOT NULL,
-  `pet_id` int NOT NULL,
+  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `seller_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `pet_id` int(11) NOT NULL,
   `price` decimal(10, 2) NULL DEFAULT NULL,
   `transaction_date` date NULL DEFAULT NULL,
-  `status` enum('PENDING','COMPLETED','CANCELLED') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'PENDING',
+  `status` enum('PENDING','COMPLETED','CANCELLED') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'PENDING',
   PRIMARY KEY (`transaction_id`) USING BTREE,
-  INDEX `seller_id`(`seller_id` ASC) USING BTREE,
-  INDEX `buyer_id`(`buyer_id` ASC) USING BTREE,
-  INDEX `pet_id`(`pet_id` ASC) USING BTREE,
+  INDEX `seller_id`(`seller_id`) USING BTREE,
+  INDEX `buyer_id`(`buyer_id`) USING BTREE,
+  INDEX `pet_id`(`pet_id`) USING BTREE,
   CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`buyer_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`pet_id`) REFERENCES `pet` (`pet_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of transaction
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `role` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'user/query',
-  `profile_picture_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `contact_info` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'user/query',
+  `profile_picture_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `contact_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`user_id`) USING BTREE,
-  UNIQUE INDEX `username`(`username` ASC) USING BTREE,
-  UNIQUE INDEX `email`(`email` ASC) USING BTREE,
-  INDEX `role_id`(`role` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+  UNIQUE INDEX `username`(`username`) USING BTREE,
+  UNIQUE INDEX `email`(`email`) USING BTREE,
+  INDEX `role_id`(`role`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user

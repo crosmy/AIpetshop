@@ -49,7 +49,7 @@ public class Pet implements Serializable {
     private LocalDateTime updatedAt;
 
     //宠物是否售出
-    private Boolean isSold;
+    private Boolean isSold = false;
 
 
 }

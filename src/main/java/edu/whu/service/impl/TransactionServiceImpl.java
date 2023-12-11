@@ -1,6 +1,9 @@
 package edu.whu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import edu.whu.dao.PetDao;
+import edu.whu.domain.Pet;
 import edu.whu.domain.Transaction;
 import edu.whu.dao.TransactionDao;
 import edu.whu.exception.CustomException;
@@ -29,18 +32,17 @@ public class TransactionServiceImpl extends ServiceImpl<TransactionDao, Transact
     @Autowired
     private TransactionDao transactionDao;
 
+    @Autowired
+    private PetDao petDao;
+
     // 创建交易
     @Transactional
-    public Transaction createTransaction(Integer buyerId, Integer sellerId) throws CustomException {
-        Transaction transaction = new Transaction();
-        transaction.setBuyerId(buyerId);
-        transaction.setSellerId(sellerId);
-        transaction.setStatus("PENDING");
-
+    public Transaction createTransaction(Transaction transaction) throws CustomException {
         int result = transactionDao.insert(transaction);
         if (result <= 0) {
             throw new CustomException(CREATE_FAILED, "创建交易失败");
         }
+        petDao.update(petDao.selectById(transaction.getPetId()), new UpdateWrapper<Pet>().lambda().eq(Pet::getPetId, transaction.getPetId()).set(Pet::getIsSold, true));
         return transaction;
     }
 

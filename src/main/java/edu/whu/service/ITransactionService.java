@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2023-11-14
  */
 public interface ITransactionService extends IService<Transaction> {
-    Transaction createTransaction(Integer buyerId, Integer sellerId) throws CustomException;
+    Transaction createTransaction(Transaction transaction) throws CustomException;
 
     void updateTransactionStatus(Integer transactionId, String status) throws CustomException;
 
