@@ -31,11 +31,10 @@ public class TransactionServiceImpl extends ServiceImpl<TransactionDao, Transact
 
     // 创建交易
     @Transactional
-    public Transaction createTransaction(Integer buyerId, Integer sellerId, BigDecimal amount) throws CustomException {
+    public Transaction createTransaction(Integer buyerId, Integer sellerId) throws CustomException {
         Transaction transaction = new Transaction();
         transaction.setBuyerId(buyerId);
         transaction.setSellerId(sellerId);
-        transaction.setAmount(amount);
         transaction.setStatus("PENDING");
 
         int result = transactionDao.insert(transaction);

@@ -31,13 +31,13 @@ public class Transaction implements Serializable {
 
     private Integer petId;
 
-    private BigDecimal price;
+    private Double price;
 
     private LocalDate transactionDate;
 
     private String status;
 
-    private BigDecimal amount;
+    //private BigDecimal amount;
 
 
 }

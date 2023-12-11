@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 11/12/2023 21:12:02
+ Date: 11/12/2023 22:09:07
 */
 
 SET NAMES utf8mb4;
@@ -87,6 +87,7 @@ CREATE TABLE `pet`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `price` decimal(10, 2) NULL DEFAULT NULL,
+  `is_sold` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`pet_id`) USING BTREE,
   INDEX `owner_id`(`owner_id`) USING BTREE,
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -95,8 +96,8 @@ CREATE TABLE `pet`  (
 -- ----------------------------
 -- Records of pet
 -- ----------------------------
-INSERT INTO `pet` VALUES (2, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-10 16:25:05', '2023-12-10 16:25:05', 4.00);
-INSERT INTO `pet` VALUES (3, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-11 20:22:46', '2023-12-11 20:22:46', 4.00);
+INSERT INTO `pet` VALUES (2, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-10 16:25:05', '2023-12-10 16:25:05', 4.00, NULL);
+INSERT INTO `pet` VALUES (3, 2, '柴犬', '11', NULL, 1, '2', NULL, NULL, 'https://pic.quanjing.com/ip/in/QJ6699854442.jpg@!350h', '2023-12-11 20:22:46', '2023-12-11 20:22:46', 4.00, NULL);
 
 -- ----------------------------
 -- Table structure for post

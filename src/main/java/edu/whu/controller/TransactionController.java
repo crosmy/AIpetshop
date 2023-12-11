@@ -35,10 +35,10 @@ public class TransactionController {
     private ITransactionService transactionService;
 
     // 创建交易
-    @ApiOperation(value = "创建交易", notes = "参数：buyerId, sellerId, amount")
+    @ApiOperation(value = "创建交易", notes = "参数：buyerId, sellerId")
     @PostMapping
-    public Transaction createTransaction(@RequestParam Integer buyerId, @RequestParam Integer sellerId, @RequestParam BigDecimal amount) throws CustomException {
-        return transactionService.createTransaction(buyerId, sellerId, amount);
+    public Transaction createTransaction(@RequestParam Integer buyerId, @RequestParam Integer sellerId) throws CustomException {
+        return transactionService.createTransaction(buyerId, sellerId);
     }
 
     // 更新交易状态
