@@ -25,6 +25,7 @@ public class CustomException extends Exception{
     public static final int FAVORITE_REMOVE_ERROR = 117;
     public static final int FAVORITE_LIST_ERROR = 118;
     public static final int REPLY_ERROR = 119;
+    public static final int MESSAGE_LOAD_ERROR = 120;
 
     int code; //自定义的错误代码
     public CustomException(int code,String message){

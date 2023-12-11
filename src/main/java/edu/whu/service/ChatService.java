@@ -104,4 +104,8 @@ public class ChatService {
         record.setModelResponse(modelResponse);
         chatRecordDao.insert(record);
     }
+
+    public List<ChatRecord> getChatRecord(Integer userId, Integer sellerId) {
+        return chatRecordDao.getChatRecords(userId, sellerId);
+    }
 }

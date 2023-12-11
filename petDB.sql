@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 11/12/2023 13:50:27
+ Date: 11/12/2023 14:43:19
 */
 
 SET NAMES utf8mb4;
@@ -26,8 +26,19 @@ CREATE TABLE `chat_record`  (
   `user_message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `model_response` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `timestamp` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `user_id` int(11) NULL DEFAULT NULL,
+  `seller_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chat_record
+-- ----------------------------
+INSERT INTO `chat_record` VALUES (8, '我想买一只可爱的狗，有什么推荐吗？', '当然，我们这里有各种不同品种的狗可供选择。您更倾向于大型犬还是小型犬呢？或者有没有特定的品种感兴趣？我可以根据您的喜好给出一些建议。', '2023-12-11 14:41:06', 2, 1);
+INSERT INTO `chat_record` VALUES (9, '大型犬', '对于大型犬，有很多不同的品种可供选择。您对哪种大型犬感兴趣？例如德国牧羊犬、拉布拉多寻回犬、金毛寻回犬等。', '2023-12-11 14:41:30', 2, 1);
+INSERT INTO `chat_record` VALUES (10, '德牧', '德国牧羊犬是一种聪明、勇敢和忠诚的工作犬，它们非常适合作为家庭宠物和工作伙伴。它们需要大量的运动和训练，因为它们是工作犬，渴望有任务可做。您是否对德国牧羊犬有兴趣？', '2023-12-11 14:41:43', 2, 1);
+INSERT INTO `chat_record` VALUES (11, '是的', '很高兴您做出了决定！如果您需要任何协助或有其他问题，随时联系我。祝您和新宠物伙伴幸福快乐！', '2023-12-11 14:41:53', 2, 1);
+INSERT INTO `chat_record` VALUES (12, '德牧有什么具体的驯养需要注意的地方吗？', '德国牧羊犬是一种非常聪明、忠诚和勇敢的犬种，需要适当的训练和社交化来确保其行为良好。以下是一些德国牧羊犬的驯养注意事项：\n\n1. 训练与社交化：德国牧羊犬需要早期训练和社交化，以确保其成为友善、亲近人类的宠物。定期进行基本的听从性训练和社交化训练是非常重要的。\n\n2. 锻炼：德国牧羊犬是高度活跃的犬种，需要充分的锻炼来保持身体和心理健康。提供足够的户外活动和游戏时间对于德国牧羊犬非常重要。\n\n3. 梳理：德国牧羊犬的被毛需要定期梳理，特别是在换毛期。这有助于减少脱毛和保持被毛清洁。\n\n4. 精神刺激：考虑为德国牧羊犬提供足够的智力刺激，例如玩具、智力游戏和训练，以帮助它们保持活跃的思维。\n\n5. 爱与关怀：德国牧羊犬非常忠诚，喜欢与家人在一起。定期给予爱与关怀可以帮助它们建立亲密关系。\n\n请记住，每只宠物都有自己独特的需求和个性，因此最好根据您具体的德国牧羊犬的行为和需求进行个性化的驯养。', '2023-12-11 14:42:48', 2, 1);
 
 -- ----------------------------
 -- Table structure for favorites
