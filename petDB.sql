@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 12/12/2023 00:50:50
+ Date: 12/12/2023 01:07:26
 */
 
 SET NAMES utf8mb4;
@@ -171,7 +171,7 @@ CREATE TABLE `transaction`  (
   `buyer_id` int(11) NOT NULL,
   `pet_id` int(11) NOT NULL,
   `price` decimal(10, 2) NULL DEFAULT NULL,
-  `transaction_date` date NULL DEFAULT NULL,
+  `transaction_date` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `status` enum('PENDING','COMPLETED','CANCELLED') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'PENDING',
   PRIMARY KEY (`transaction_id`) USING BTREE,
   INDEX `seller_id`(`seller_id`) USING BTREE,

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,7 +35,7 @@ public class Transaction implements Serializable {
 
     private Double price;
 
-    private LocalDate transactionDate;
+    private LocalDateTime transactionDate;
 
     private String status;
 
