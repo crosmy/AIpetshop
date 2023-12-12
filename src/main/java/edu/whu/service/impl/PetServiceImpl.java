@@ -112,4 +112,18 @@ public class PetServiceImpl extends ServiceImpl<PetDao, Pet> implements IPetServ
         queryWrapper.eq("owner_id", ownerId);
         return petDao.selectList(queryWrapper);
     }
+
+    @Override
+    public List<Pet> searchPet(String petName) {
+        QueryWrapper<Pet> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", petName);
+        return petDao.selectList(queryWrapper);
+    }
+
+    @Override
+    public Pet searchById(Integer petId) {
+        QueryWrapper<Pet> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("pet_id", petId);
+        return petDao.selectOne(queryWrapper);
+    }
 }

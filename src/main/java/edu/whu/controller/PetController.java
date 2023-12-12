@@ -73,5 +73,17 @@ public class PetController {
         return petService.getPetsByOwnerId(ownerId);
     }
 
+    @ApiOperation(value = "根据宠物名搜索宠物", notes = "用来搜索宠物")
+    @GetMapping("/search/{petName}")
+    public List<Pet> searchPet(@PathVariable String petName) {
+        return petService.searchPet(petName);
+    }
+
+    @ApiOperation(value = "根据宠物id搜索宠物", notes = "用来搜索宠物")
+    @GetMapping("/searchById/{petId}")
+    public Pet searchById(@PathVariable Integer petId) {
+        return petService.searchById(petId);
+    }
+
 }
 

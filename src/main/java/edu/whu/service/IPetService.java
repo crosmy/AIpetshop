@@ -31,6 +31,10 @@ public interface IPetService extends IService<Pet> {
     IPage<Pet> findPets(Map<String, Object> condition, Integer pageNum, Integer pageSize) throws CustomException;
 
     List<Pet> getPetsByOwnerId(Integer ownerId);
+
+    List<Pet> searchPet(String petName);
+
+    Pet searchById(Integer petId);
     /**
      * Functions: addPet(Pet pet), updatePet(Pet pet), getPetById(int petId), deletePet(int petId), getAllPets().
      */
