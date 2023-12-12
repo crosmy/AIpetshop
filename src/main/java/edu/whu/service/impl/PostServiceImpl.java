@@ -120,7 +120,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements IPost
             // 添加排序条件
             if (condition.containsKey("orderField") && condition.containsKey("orderType")) {
                 boolean isAsc = "asc".equalsIgnoreCase((String)condition.get("orderType"));
-                queryWrapper.orderBy(true, isAsc, toColumnName((String) condition.get("orderField")));
+                queryWrapper.orderBy(true, isAsc, toColumnName((String)condition.get("orderField")));
             }
 
             // 执行分页查询

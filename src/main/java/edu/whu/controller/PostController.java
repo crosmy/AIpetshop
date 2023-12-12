@@ -82,7 +82,7 @@ public class PostController {
                                 @ApiParam("用户名") @RequestParam(value = "username",required = false) String username,
                                 @ApiParam("用户id") @RequestParam(value = "userId",required = false) Integer userId,
                                 @ApiParam("排序字段") @RequestParam(value = "orderField",required = false)  String orderField,
-                                @ApiParam("排序方式") @RequestParam(value = "orderType",required = false)  String orderType,
+                                @ApiParam("排序方式") @RequestParam(value = "orderType",required = false, defaultValue = "asc")  String orderType,
                                 @ApiParam("宠物类别") @RequestParam(value = "type",required = false)  String type,
                                 @ApiParam("页码")@RequestParam(defaultValue = "0")Integer pageNum,
                                 @ApiParam("每页记录数") @RequestParam(defaultValue = "10")Integer pageSize,
@@ -111,7 +111,7 @@ public class PostController {
         if(orderField!=null&&(orderField.equals("stars"))){
             condition.put("orderField",orderField);
         }
-        if(orderField!=null&&(orderField.equals("createTime"))){
+        if(orderField!=null&&(orderField.equals("updatedAt"))){
             condition.put("orderField",orderField);
         }
         //判断排序的类型
