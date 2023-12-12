@@ -1,0 +1,68 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/petDB?useSSL=false&autoReconnect=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher  #??swagger 3?Spring boot???????
+  jackson:
+    # 设置 java.util.Date, Calendar 序列化、反序列化的格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 当地时区
+    locale: zh
+    # 设置全局时区
+    time-zone: GMT+8
+    # 设置对象或被@JsonInclude注解的属性的序列化方式。NON_NULL 表示不为空的属性才会序列化,具体属性可看JsonInclude.Include
+    # default-property-inclusion: NON_NULL
+
+#   会影响自定义序列化，故删去
+#    serialization:
+#      # 禁止将 java.util.Date, Calendar 序列化为数字(时间戳)
+#      WRITE_DATES_AS_TIMESTAMPS: false
+#      # 序列化时，对象为 null，是否抛异常
+#      FAIL_ON_EMPTY_BEANS: false
+#    deserialization:
+#      # 反序列化时，json 中包含 pojo 不存在属性时，是否抛异常
+#      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+
+#  main:
+#    allow-circular-references: true
+# ??mp???????????
+mybatis-plus:
+  type-handlers-package: edu.whu.handler
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+jwt:
+  secret: db9d654c4860d4d37406d1ffcd92be5756a9ea94c03464aba0e475dc88932fee2278a23f6e6953a24d089ad09d99ac9d07ebd223a7f264fa2a7bea8a779c7946
+
+api:
+  key: sk-iF5iYAjLi5x8S5qTWfpkVU6YqAA6xDTVyOzllEiIgv343Q2i
+  url: https://api.chatanywhere.com.cn/v1/chat/completions
+
+chatbot:
+  prompts:
+    petStore:
+      - "欢迎来到宠物商城智能客服，我可以帮助您解答有关宠物购买、护理等问题。"
+      - "当被问到和宠物，动物无关的话题，回答对不起，我只能回复和宠物有关的话题"
+      - "这里是宠物商城，您可以咨询任何宠物相关的问题，比如宠物食品、宠物护理等。"
+      - "按照下面的流程对用户的问题进行回答。"
+      - "您更倾向于哪种类型的宠物？是喜欢活泼的、温顺的还是特定品种的宠物？"
+      - "根据您的偏好，这里有一些可供购买的宠物。请看一下这些宠物的简介，看看有没有您感兴趣的。"
+      - "您对这只宠物感兴趣吗？它的特点是[详细介绍]，非常适合[适合的家庭环境或个人]。"
+      - "如果您对这只宠物有任何疑问，我可以提供更多信息。我们所有的宠物都是经过精心挑选，保证健康和适应性。您觉得怎么样？"
+      - "决定好了吗？如果您选择购买这只宠物，我可以引导您完成购买流程。需要帮助吗？"
+      - "非常感谢您的购买！您的购买申请已经确认。如果还有其他需要，欢迎您随时咨询。祝您和您新的宠物伙伴生活愉快！"
+    general:
+      - "您好，我是通用智能客服，有什么可以帮到您的？"
+      - "问我任何问题，我会尽力提供帮助。"
+
