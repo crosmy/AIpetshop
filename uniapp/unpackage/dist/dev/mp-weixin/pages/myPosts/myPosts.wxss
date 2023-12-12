@@ -1,0 +1,58 @@
+
+.plstyle{
+	/* display: flex; */
+	justify-content: space-between;
+}
+.image-container {
+   display: flex;
+   
+  /* flex-wrap: wrap; */
+  flex-direction: row; 
+  justify-content: space-between;
+	flex: 1; 
+  padding: 5px;
+}
+.container {
+  position: bottom
+}
+.image-row {
+	display: inline-block;
+	width: 48%;
+	margin-bottom: 10px;
+	padding: 2px;
+	box-shadow: 2px 2px 5px rgba(255, 0, 0, 0.2);
+  /* display: flex; */
+  /*  align-items: flex; */
+   justify-content: space-between; 
+  /* flex-direction: column; */
+}
+.image-item {
+  width: 100%; 
+  /* height: auto; */
+  /* object-fit: cover; */
+  
+  box-sizing: border-box; /* 防止添加 padding 导致超出容器宽度 */
+  position: relative;
+  margin-bottom: 10px;
+}
+.text-container {
+  display: flex;
+  flex-direction: column; /* 将文本垂直排列 */
+  align-items: center;
+}
+.fab-button {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  border-radius: 50%; 
+  background-color: #ffffff; /* 设置按钮的背景颜色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* 设置一个较高的 z-index 值，确保按钮在其他元素上方 */
+}
+.fab-icon {
+  width: 80px;
+  height: 80px;
+}
+

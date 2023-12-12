@@ -1,0 +1,9 @@
+
+.profile {
+  padding: 10px;
+}
+.nickname {
+  font-size: 18px;
+  font-weight: bold;
+}
+

@@ -1,0 +1,1 @@
+<view class="profile"><text class="nickname">{{nickname}}</text></view>

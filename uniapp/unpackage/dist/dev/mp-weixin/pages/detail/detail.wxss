@@ -1,0 +1,93 @@
+
+.starShow{
+	margin-top: 20px;
+	margin-left: 15px;
+	margin-right: 50px;
+	font-size: 20px;
+	border: 2px dashed #000000;
+}
+.scoreContainer{
+	display: flex;
+	flex-direction: row;
+}
+.scoreButton{
+	width: 15%;
+	margin-right: 3px;
+	background-color: #ffdbfb
+}
+.chooseText{
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+text.active {
+  background-color: #ffc0fc; /* 高亮文字的样式 */
+}
+.reserve-button {
+	position: fixed;
+	/* flex-wrap: nowrap; */
+	display: flex;
+	align-items: center;
+	right: 0px;
+	bottom: 0px;
+}
+.reserve-star{
+	width: 46px;
+	height: 46px;
+	margin-right: 5px;
+}
+.buy-button {
+  position: fixed;
+  bottom: 20px; /* 距离底部的距离，根据需要调整 */
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 999;
+  transition: opacity 0.3s ease; /* 添加过渡效果 */
+}
+.buy-button.fixed {
+  opacity: 0; /* 固定时隐藏按钮 */
+}
+button {
+  /* 购买按钮样式 */
+}
+.image-container {
+  height: 750rpx;
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start; */
+  padding: 10px;
+}
+.floating-button {
+  position: absolute;
+  right: 15px;
+  z-index: 999;
+  /* 其他样式... */
+}
+.button-icon {
+  width: 50px;
+  height: 50px;
+  /* 其他样式... */
+}
+.detail-image {
+  width: 98%; /* 根据需要调整图片宽度 */
+  height: auto;
+  margin-bottom: 10px;
+  border: 1px solid #b3b3b3;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.text-container {
+  padding-bottom: 80px;
+  margin-left: 10px;
+}
+._h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+._p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+

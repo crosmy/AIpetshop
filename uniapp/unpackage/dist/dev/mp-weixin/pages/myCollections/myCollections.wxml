@@ -1,0 +1,1 @@
+<view><view class="container"><block wx:for="{{postPreviewImageList}}" wx:for-item="item" wx:for-index="index"><view class="collectionPosts"><image class="previewImage" src="{{item}}"></image><text class="previewTitle">{{postPreviewTitleList[index]}}</text></view></block></view></view>

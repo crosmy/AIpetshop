@@ -1,0 +1,23 @@
+
+.container{
+	display: flex;
+	padding: 5px;
+}
+.collectionPosts{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 200px;
+	padding: 5px;
+}
+.previewImage{
+	height: 200px;
+	height: 200px;
+}
+.previewTitle{
+	align-items: center;
+	left: 40px;
+	position: relative;
+	font-size: 20px;
+}
+
