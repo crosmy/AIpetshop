@@ -24,7 +24,7 @@
 	export default {
 		data() {
 			return {
-				messages:['helloWorld!','你好，世界！'],//onload的时候需要加载所有的历史记录
+				messages:['你好，宠物助手！!','你好，很高兴为你提供帮助！'],//onload的时候需要加载所有的历史记录
 				messageIsMe:[true,false],
 				form:{
 					message:'',
@@ -63,7 +63,9 @@
 				})
 			},
 			sendMessage(){
-				this.form.message = this.newInputMessage
+				this.form.message = this.newInputMessage;
+				this.messages = [...this.messages,this.newInputMessage];
+				this.newInputMessage = ''
 				uni.request({
 					url:'http://localhost:8080/chat/message',
 					data:this.form,
@@ -72,7 +74,8 @@
 						'Authorization':'Bearer ' + uni.getStorageSync('user'+this.username)
 					},
 					success: (res) => {
-						console.log("返回的聊天信息：",res)
+						console.log("返回的聊天信息：",res);
+						this.messages = [...this.messages,res.data]
 					}
 					
 				})
